@@ -3,9 +3,7 @@ Created on Oct 12, 2017
 
 @author: linux
 '''
-/*
- * Complete the function below.
- */
+
 ''' 
 #define max(a, b) ((a > b) ? (a) : (b))
 int maxDifference(int a_size, int* a) {
@@ -46,7 +44,7 @@ int maxDifference(int a_size, int* a) {
 
 }
 
-'''
+
 def maxDifference(a):
    
     if(len(a) == 1):
@@ -68,6 +66,7 @@ def maxDifference(a):
         merge_diff = max_right - min_left
         return max(merge_diff, max(right_diff, left_diff))
 }
+'''
 if __name__ == "__main__":
     f = open(os.environ['OUTPUT_PATH'], 'w')
     a_cnt = 0
