@@ -1,6 +1,7 @@
 from Queue import Queue
 
-
+# BFS:
+#_____
 def get_all_neighbors(G, S):
     candidates = G[S][:]
 
@@ -23,26 +24,12 @@ def traverseBFSRecursive(S, G):
         # Queue all neighbors
         for neighbor in neighbors:
             Q.put(neighbor)
-        '''
-        try:
-            next_node = Q.get(block=True)
-            traverseBFSRecursive(next_node, G)
-        except:
-            return
-        '''
         if not Q.empty():
             next_node = Q.get(block=True)
             traverseBFSRecursive(next_node, G)
         else:
             return
     else:
-        '''
-        try:
-            next_node = Q.get(block=True)
-            traverseBFSRecursive(next_node, G)
-        except:
-            return
-        '''
         if not Q.empty():
             next_node = Q.get(block=True)
             traverseBFSRecursive(next_node, G)
@@ -52,7 +39,7 @@ def traverseBFS(G):
     S = 0
     traverseBFSRecursive(S, G)
 
-def getConnectedComponent(G):
+def getConnectedComponentBFS(G):
     N = len(G)
 
     for node in range(N):
@@ -62,19 +49,43 @@ def getConnectedComponent(G):
             traverseBFSRecursive(node, G)
 
 
-def zombieCluster(zombies):
-    N = len(zombies)
+# DFS
+St = []
+visited = []
+def traverseDFSRecursive(S, G):
+    if not S in visited:
+        print S
+        visited.append(S)
+        neighbors = get_all_neighbors(G, S)
+        for neighbor in neighbors:
+            if not neighbor in visited:
+                St.append(neighbor)
 
-    nClusters = 0
+        if len(St)  > 0:
+            next_node = St.pop()
+            traverseDFSRecursive(next_node, G)
+        else:
+            return
+    else:
+        return
+
+def traverseDFS(G):
+    S = 0
+    traverseDFSRecursive(S, G)
+
+def getConnectedComponentDFS(G):
+    N = len(G)
+
     for node in range(N):
 
         if not node in visited:
-            nClusters += 1
-            traverseBFSRecursive(node, zombies)
+            print 'Cluster starts at ', node
+            traverseDFSRecursive(node, G)
 
-    return nClusters
-
-G = [[1,0,1],[0,1,0],[1,0,1]]
+#G = [[1,0,1],[0,1,0],[1,0,1]]
 #traverseBFS(G)
 #getConnectedComponent(G)
-print zombieCluster(G)
+
+G = [[1,1,1,0,0],[1,1,0,1,0],[1,0,1,0,0],[0,1,0,1,0],[0,0,0,0,1]]
+#print traverseDFS(G)
+getConnectedComponentDFS(G)
